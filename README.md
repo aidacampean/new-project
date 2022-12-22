@@ -3,7 +3,7 @@
 
 1. Clone repo
 
-2. Set up .env file with your preferred ports etc. Set the DB_HOST to db though as configured in the docker-compose file. 
+2. Set up .env file with your preferred ports etc. Set the DB_HOST to 'db' as configured in the docker-compose file. 
 
 3. Run "docker build . " to build the docker image
 
