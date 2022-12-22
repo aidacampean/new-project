@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\RadioStation;
-use Illuminate\Http\Request;
 
 class RadioStationController extends Controller
 {
@@ -14,72 +13,21 @@ class RadioStationController extends Controller
      */
     public function index()
     {
-        //
+        // get all radio stations
+        $stations = RadioStation::all();
+
+        return response()->json([
+            'data' => $stations
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getStation(int $id)
     {
-        //
-    }
+        // get one station by id
+        $station = RadioStation::whereId($id)->firstOrFail();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\RadioStation  $radioStation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(RadioStation $radioStation)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\RadioStation  $radioStation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(RadioStation $radioStation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RadioStation  $radioStation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, RadioStation $radioStation)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\RadioStation  $radioStation
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(RadioStation $radioStation)
-    {
-        //
+        return response()->json([
+            'data' => $station
+        ], 200);
     }
 }

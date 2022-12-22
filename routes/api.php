@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RadioStationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', [UserController::class, 'index']);
+Route::get('/stations', [RadioStationController::class, 'index']);
+Route::get('/station/{id}', [RadioStationController::class, 'getStation']);
+
+
