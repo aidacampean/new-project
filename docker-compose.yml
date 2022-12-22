@@ -1,0 +1,90 @@
+version: '3'
+services:
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: digitalocean.com/php
+    container_name: rad_app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: rad_app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      # - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - rad_network
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: rad_webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8001:80"
+      - "4453:443"
+    volumes:
+      - ./:/var/www
+      - ./docker_config/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - rad_network
+
+  #MySQL Service
+  db:
+    image: mysql:8.0
+    container_name: rad_db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_DATABASE: finances
+      MYSQL_ROOT_PASSWORD: tester
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - mysql-files:/var/lib/mysql-files
+      # - ./docker_config/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - rad_network
+
+  phpmyadmin:
+    depends_on:
+      - rad_db
+    image: phpmyadmin
+    container_name: rad_phpmyadmin
+    restart: always
+    ports:
+      - 8010:80
+    environment:
+      PMA_HOST: rad_db
+      PMA_PORT: 3306
+      PMA_PASSWORD: tester
+    networks:
+      - rad_network
+
+  # mailhog:
+  #   image: mailhog/mailhog
+  #   container_name: mailhog
+  #   logging:
+  #     driver: 'none'  # disable saving logs
+  #   ports:
+  #     - 1025:1025 # smtp server
+  #     - 8025:8025 # web ui
+  #   networks:
+  #     - rad_network
+
+#Docker Networks
+networks:
+  rad_network:
+    driver: bridge
+
+#Volumes
+volumes:
+  mysql-files:
+    driver: local
