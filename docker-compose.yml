@@ -43,7 +43,7 @@ services:
     ports:
       - "3309:3306"
     environment:
-      MYSQL_DATABASE: finances
+      MYSQL_DATABASE: rad
       MYSQL_ROOT_PASSWORD: tester
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
