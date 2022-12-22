@@ -26,3 +26,4 @@
  - To retrieve a radio station by id endpoint: GET:localhost:portnumber/api/station/id
  
  
+## EXTRA: SwaggerHub API Spec Link: https://app.swaggerhub.com/apis/aidacampean/Rad/1.0.0
