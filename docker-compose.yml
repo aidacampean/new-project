@@ -55,7 +55,7 @@ services:
 
   phpmyadmin:
     depends_on:
-      - rad_db
+      - db
     image: phpmyadmin
     container_name: rad_phpmyadmin
     restart: always
